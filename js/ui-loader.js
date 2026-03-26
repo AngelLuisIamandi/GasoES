@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.insertAdjacentHTML('afterbegin', uiTemplate);
 
     const path = window.location.pathname;
-    if (path.includes('listado.html')) {
+    if (path.includes('listado')) {
         document.getElementById('nav-listado')?.classList.add('active');
     } else {
         document.getElementById('nav-mapa')?.classList.add('active');
