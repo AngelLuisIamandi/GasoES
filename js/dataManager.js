@@ -23,7 +23,7 @@ async function guardarEnDB(data) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], "readwrite");
         const store = transaction.objectStore(STORE_NAME);
-        store.put(data, "lista_completa"); // Guardamos todo el array bajo una clave
+        store.put(data, "lista_completa");
         transaction.oncomplete = () => resolve();
         transaction.onerror = () => reject();
     });
@@ -48,7 +48,7 @@ async function getGasolineras() {
         try {
             const datosCache = await leerDeDB();
             if (datosCache) {
-                console.log("Cargando desde IndexedDB (Sin límite de espacio)");
+                //console.log("Cargando desde IndexedDB");
                 return datosCache;
             }
         } catch (e) {
@@ -57,7 +57,7 @@ async function getGasolineras() {
     }
 
     try {
-        console.log("Consultando API del Ministerio...");
+        //console.log("Consultando API del Ministerio...");
         const response = await fetch(API_URL);
         const data = await response.json();
         const estaciones = data.ListaEESSPrecio;
