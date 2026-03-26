@@ -1,0 +1,62 @@
+.table-container {
+    max-height: 100vh;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+}
+
+.sticky-top {
+    top: -1px;
+    z-index: 10;
+}
+
+#tableBody tr:hover {
+    background-color: #f8f9fa;
+    cursor: default;
+}
+
+.price-badge {
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+}
+
+.badge {
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+td .badge {
+    display: block;
+}
+
+.form-check-input:checked {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.fav-icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.fav-icon:hover {
+    transform: scale(1.2);
+}
+
+td span.badge {
+    display: inline-block;
+    padding: 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+th:nth-child(4), th:nth-child(5), th:nth-child(6), th:nth-child(7), th:nth-child(8) {
+    width: 85px;
+}
+
+.bi-star-fill.text-warning {
+    filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.4));
+}

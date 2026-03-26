@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Precios | GasoES</title>
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/listado.css">
+    <script src="js/ui-loader.js"></script>
+</head>
+
+<body class="bg-light">
+
+    <div class="container"></div>
+
+    <div class="container mt-5 pt-5">
+        <div class="d-md-none mb-3">
+    <button class="btn btn-primary w-100 shadow-sm d-flex justify-content-between align-items-center" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#filterCollapse">
+        <span><i class="bi bi-sliders2 me-2"></i> Filtros y Búsqueda</span>
+        <i class="bi bi-chevron-down"></i>
+    </button>
+</div>
+
+<div class="collapse d-md-block" id="filterCollapse">
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body bg-light rounded shadow-sm">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                        <i class="bi bi-search me-1"></i> Buscar
+                    </label>
+                    <input type="text" id="searchInput" class="form-control border-0 shadow-sm" placeholder="Municipio, Rótulo...">
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                        <i class="bi bi-geo-alt me-1"></i> Ubicación
+                    </label>
+                    <div class="input-group shadow-sm">
+                        <input type="text" id="locationInput" class="form-control border-0" placeholder="Cerca de...">
+                        <button class="btn btn-white border-start" type="button" id="btnGPS">
+                            <i class="bi bi-crosshair text-primary"></i>
+                        </button>
+                        <input type="number" id="rangeInput" class="form-control border-0 text-center text-muted small px-1" value="30" style="max-width: 65px;">
+                        <span class="input-group-text bg-white border-0 text-muted small ps-0 pe-2">km</span>
+                        <button class="btn btn-primary border-0" type="button" id="btnLocation">
+                            <i class="bi bi-funnel"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                        <i class="bi bi-fuel-pump me-1"></i> Combustible
+                    </label>
+                    <select id="sortSelect" class="form-select border-0 shadow-sm">
+                        <option value="todos">Mostrar Todos</option>
+                        <option value="p95" selected>Gasolina 95</option>
+                        <option value="p98">Gasolina 98</option>
+                        <option value="pDiesel">Diésel A</option>
+                        <option value="pDieselPre">Diésel+</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                        <i class="bi bi-star me-1"></i> Filtro
+                    </label>
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-white border-0 flex-grow-1 text-muted small justify-content-start">Solo Favs</span>
+                        <div class="input-group-text bg-white border-0 px-3">
+                            <div class="form-check form-switch m-0">
+                                <input class="form-check-input" type="checkbox" id="favFilter" role="switch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="table-responsive table-container shadow-sm bg-white rounded">
+            <table class="table table-hover align-middle mb-0 text-center" style="font-size: 0.85rem;">
+                <thead class="table-dark sticky-top">
+                    <tr>
+                        <th style="width: 50px;"><i class="bi bi-star-fill text-warning"></i></th>
+                        <th class="text-start">Estación / Dirección</th>
+                        <th>Municipio</th>
+                        <th>G95</th>
+                        <th>G98</th>
+                        <th>Diésel A</th>
+                        <th>Diésel+</th>
+                        <th>GLP</th>
+                        <th>Horario</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <div id="loader-listado" class="text-center my-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2">Sincronizando estaciones...</p>
+        </div>
+    </div>
+
+    <script src="js/dataManager.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/listado.js"></script>
+</body>
+
+</html>
