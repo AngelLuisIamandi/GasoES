@@ -9,7 +9,8 @@ const SORT_MAP = {
     'p95': 'Precio Gasolina 95 E5',
     'p98': 'Precio Gasolina 98 E5',
     'pDiesel': 'Precio Gasoleo A',
-    'pDieselPre': 'Precio Gasoleo Premium'
+    'pDieselPre': 'Precio Gasoleo Premium',
+    'pGLP': 'Precio Gases licuados del petróleo'
 };
 
 const elements = {
