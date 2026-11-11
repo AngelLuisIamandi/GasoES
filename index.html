@@ -4,72 +4,772 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa | GasoES</title>
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <title>GasoES | Precios de Gasolineras en España Hoy y Comparador Barato</title>
+    <meta name="description" content="Consulta el precio de gasolineras en España hoy en tiempo real. Encuentra gasolina 95, 98, diésel barato y GLP con datos oficiales MITECO. ¡Ahorra hasta 20€!">
+    <link rel="canonical" href="https://gasoes.com/index.html">
+    <meta name="robots" content="index, follow">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GasoES">
+    <link rel="apple-touch-icon" href="img/favicon.png">
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gasoes.com/index.html">
+    <meta property="og:title" content="GasoES | Precios de Gasolineras en España Hoy y Comparador Barato">
+    <meta property="og:description" content="Consulta el precio de gasolineras en España hoy en tiempo real. Encuentra gasolina 95, 98, diésel barato y GLP con datos oficiales MITECO. ¡Ahorra hasta 20€!">
+    <meta property="og:image" content="https://gasoes.com/img/favicon.png">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://gasoes.com/index.html">
+    <meta name="twitter:title" content="GasoES | Precios de Gasolineras en España Hoy y Comparador Barato">
+    <meta name="twitter:description" content="Compara precios de combustible en vivo y ahorra en cada repostaje con datos del Ministerio (MITECO).">
+    <meta name="twitter:image" content="https://gasoes.com/img/favicon.png">
+
+    <!-- Google Fonts & Bootstrap 5 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="js/ui-loader.js"></script>
+    <!-- Estilos específicos de Landing Page y Cookies -->
+    <link rel="stylesheet" href="css/home.css?v=14">
+    <link rel="stylesheet" href="css/cookieConsent.css?v=8">
+    <script src="js/ui-loader.js?v=8"></script>
+
+    <!-- Datos Estructurados JSON-LD (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://gasoes.com/#website",
+          "name": "GasoES",
+          "url": "https://gasoes.com/",
+          "description": "Comparador independiente de precios de gasolineras en España en tiempo real.",
+          "inLanguage": "es-ES",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://gasoes.com/listado.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://gasoes.com/#webapp",
+          "name": "GasoES",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+          },
+          "description": "Aplicación web gratuita y PWA para comparar precios de combustible en más de 11.800 gasolineras de España con datos oficiales MITECO."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://gasoes.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Con qué frecuencia se actualizan los precios de las gasolineras en GasoES?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Los precios se sincronizan continuamente con el Geoportal oficial del Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO). La base de datos se renueva cada 30 minutos para garantizar que siempre repostes con los precios vigentes."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿De dónde proceden los datos de precios de combustible mostrados?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Todos los datos proceden directamente del Registro Oficial de Estaciones de Servicio del Ministerio para la Transición Ecológica (MITECO), donde cada gasolinera en España está obligada por ley a comunicar cualquier cambio de precio antes de aplicarlo en el surtidor."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuánto dinero puedo ahorrar al año eligiendo una gasolinera barata?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La diferencia entre la gasolinera más cara y la más económica de una misma comarca suele rondar entre 0,18 € y 0,25 € por litro. En un depósito estándar de 50 litros esto supone un ahorro directo de 9 € a 13 € por llenado, lo que para un conductor medio equivale a más de 250 € a 320 € de ahorro anual."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿El combustible de las gasolineras Low-Cost tiene la misma calidad?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Todo el carburante distribuido en España proviene de los mismos centros logísticos oficiales (Exolum, anteriormente CLH) y cumple rigurosamente la normativa de calidad europea EN 228 (gasolina) y EN 590 (gasóleo). Las marcas tradicionales suelen añadir paquetes de aditivos propios, pero la base es exactamente idéntica y segura para el motor."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Es necesario registrarse o pagar para usar GasoES?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. GasoES es 100% gratuito, libre de registros obligatorios y accesible desde cualquier navegador o instalable como Progressive Web App (PWA) en tu teléfono móvil u ordenador."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Puedo utilizar GasoES sin conexión a Internet?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. GasoES está dotado de tecnología Progressive Web App (PWA) y base de datos local IndexedDB, lo que permite consultar los últimos precios descargados e información de estaciones incluso si te encuentras en una carretera sin cobertura móvil."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 
-<body>
-    <div class="container"></div>
+<body class="home-page">
 
-    <div id="loader">
-        <div class="text-center bg-white p-5 rounded-3 shadow">
-            <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
-            <h4 class="fw-bold">Obteniendo Precios...</h4>
-            <p class="text-muted mb-0">Estamos conectando con el Geoportal del Ministerio.</p>
+    <!-- ==========================================================================
+         Hero Section & Precios Medios (Contenedor Unificado con Resplandor Continuo)
+         ========================================================================== -->
+    <div class="hero-glow-wrapper">
+        <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="hero-title text-body">
+                Precios de Gasolineras en España Hoy:<br class="d-none d-md-inline">
+                <span class="text-primary">Encuentra el Combustible Más Barato</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Compara en tiempo real más de <strong>11.800 estaciones de servicio</strong> en España y ahorra hasta <strong>15€ a 20€ por depósito</strong> con datos oficiales del Ministerio verificados cada 30 minutos.
+            </p>
+
+            <!-- Buscador Rápido de Municipio o Marca -->
+            <form id="heroSearchForm" class="hero-search-card" role="search">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0 text-primary ps-3 pe-2">
+                        <i class="bi bi-search fs-5"></i>
+                    </span>
+                    <input type="text" id="heroSearchInput" class="form-control" 
+                           placeholder="Introduce tu ciudad, código postal o marca (ej. Madrid, Plenoil, 46001)..." 
+                           aria-label="Buscar gasolineras por localidad o cadena">
+                    <button class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" type="submit">
+                        <span class="d-none d-sm-inline">Buscar Precios</span>
+                        <i class="bi bi-arrow-right d-sm-none"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Botones CTA Principales -->
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="mapa.html" class="btn-hero-primary">
+                    <i class="bi bi-map-fill"></i>
+                    <span>Explorar Mapa en Vivo</span>
+                </a>
+                <a href="listado.html" class="btn-hero-secondary">
+                    <i class="bi bi-table"></i>
+                    <span>Ver Listado y Filtros</span>
+                </a>
+            </div>
+
+            <!-- Chips de Búsqueda Rápida por Ciudades -->
+            <div class="hero-quick-chips">
+                <span class="small text-muted me-1 align-self-center">Populares:</span>
+                <a href="listado.html?q=Madrid" class="hero-quick-chip">Madrid</a>
+                <a href="listado.html?q=Barcelona" class="hero-quick-chip">Barcelona</a>
+                <a href="listado.html?q=Valencia" class="hero-quick-chip">Valencia</a>
+                <a href="listado.html?q=Sevilla" class="hero-quick-chip">Sevilla</a>
+                <a href="listado.html?q=Zaragoza" class="hero-quick-chip">Zaragoza</a>
+                <a href="listado.html?q=Malaga" class="hero-quick-chip">Málaga</a>
+                <a href="listado.html?q=Bilbao" class="hero-quick-chip">Bilbao</a>
+                <a href="listado.html?q=Alicante" class="hero-quick-chip">Alicante</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         Widget en Tiempo Real: Precios Medios Hoy en España
+         ========================================================================== -->
+    <section class="prices-widget-section">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="h3 fw-bold mb-1 text-body">
+                        <i class="bi bi-graph-up-arrow text-primary me-2"></i>Precios Medios Hoy en España
+                    </h2>
+                    <p class="text-muted small mb-0" id="widgetLastUpdated">
+                        Actualizando con los datos oficiales más recientes de MITECO...
+                    </p>
+                </div>
+                <div class="mt-2 mt-md-0">
+                    <span class="badge bg-body text-body border shadow-sm px-3 py-2" id="badgeTotalEstaciones">
+                        <i class="bi bi-clock-history me-1"></i> Conectando con Geoportal...
+                    </span>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <!-- Gasolina 95 -->
+                <div class="col-6 col-lg">
+                    <div class="fuel-price-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <span class="fuel-badge bg-success-subtle text-success border border-success-subtle">Gasolina 95</span>
+                            <i class="bi bi-fuel-pump text-success"></i>
+                        </div>
+                        <div class="fuel-price-value" id="avg-p95">
+                            <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+                            <span class="small text-muted fs-6 ms-1">Cargando...</span>
+                        </div>
+                        <div class="fuel-min-badge" id="min-p95">
+                            <span class="text-muted"><i class="bi bi-arrow-repeat spin-icon me-1"></i>Conectando MITECO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gasolina 98 -->
+                <div class="col-6 col-lg">
+                    <div class="fuel-price-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <span class="fuel-badge bg-danger-subtle text-danger border border-danger-subtle">Gasolina 98</span>
+                            <i class="bi bi-speedometer2 text-danger"></i>
+                        </div>
+                        <div class="fuel-price-value" id="avg-p98">
+                            <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
+                            <span class="small text-muted fs-6 ms-1">Cargando...</span>
+                        </div>
+                        <div class="fuel-min-badge" id="min-p98">
+                            <span class="text-muted"><i class="bi bi-arrow-repeat spin-icon me-1"></i>Conectando MITECO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diésel A -->
+                <div class="col-6 col-lg">
+                    <div class="fuel-price-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <span class="fuel-badge bg-primary-subtle text-primary border border-primary-subtle">Diésel A</span>
+                            <i class="bi bi-truck text-primary"></i>
+                        </div>
+                        <div class="fuel-price-value" id="avg-pDiesel">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                            <span class="small text-muted fs-6 ms-1">Cargando...</span>
+                        </div>
+                        <div class="fuel-min-badge" id="min-pDiesel">
+                            <span class="text-muted"><i class="bi bi-arrow-repeat spin-icon me-1"></i>Conectando MITECO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diésel+ Premium -->
+                <div class="col-6 col-lg">
+                    <div class="fuel-price-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <span class="fuel-badge bg-info-subtle text-info border border-info-subtle">Diésel+</span>
+                            <i class="bi bi-stars text-info"></i>
+                        </div>
+                        <div class="fuel-price-value" id="avg-pDieselPre">
+                            <div class="spinner-border spinner-border-sm text-info" role="status"></div>
+                            <span class="small text-muted fs-6 ms-1">Cargando...</span>
+                        </div>
+                        <div class="fuel-min-badge" id="min-pDieselPre">
+                            <span class="text-muted"><i class="bi bi-arrow-repeat spin-icon me-1"></i>Conectando MITECO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GLP -->
+                <div class="col-12 col-sm-6 col-lg">
+                    <div class="fuel-price-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <span class="fuel-badge bg-warning-subtle text-warning border border-warning-subtle">GLP Auto</span>
+                            <i class="bi bi-fire text-warning"></i>
+                        </div>
+                        <div class="fuel-price-value" id="avg-pGLP">
+                            <div class="spinner-border spinner-border-sm text-warning" role="status"></div>
+                            <span class="small text-muted fs-6 ms-1">Cargando...</span>
+                        </div>
+                        <div class="fuel-min-badge" id="min-pGLP">
+                            <span class="text-muted"><i class="bi bi-arrow-repeat spin-icon me-1"></i>Conectando MITECO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- ==========================================================================
+         Espacio Publicitario Google AdSense Slot 1 (Header/In-Feed)
+         ========================================================================== -->
+    <div class="container adsense-wrapper">
+        <div class="adsense-slot">
+            <span class="adsense-tag">Publicidad</span>
+            <!-- Código Placeholder Google AdSense Slot 1 -->
+            <ins class="adsbygoogle"
+                 style="display:block; min-width: 300px; min-height: 90px; width: 100%;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (window.adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 
-    <div class="btn-ubicacion" onclick="miUbicacion()" title="Mi ubicación">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-            <path
-                d="M8 16a.5.5 0 0 1-.5-.5v-1.1c-3.022-.245-5.455-2.678-5.7-5.7H.5a.5.5 0 0 1 0-1h1.1c.245-3.022 2.678-5.455 5.7-5.7V.5a.5.5 0 0 1 1 0v1.1c3.022.245 5.455 2.678 5.7 5.7h1.1a.5.5 0 0 1 0 1h-1.1c-.245 3.022-2.678 5.455-5.7 5.7v1.1a.5.5 0 0 1-.5.5zM4.5 8a3.5 3.5 0 1 0 7 0 3.5 3.5 0 0 0-7 0z" />
-        </svg>
-    </div>
+    <!-- ==========================================================================
+         Calculadora Interactiva de Ahorro
+         ========================================================================== -->
+    <section class="py-5">
+        <div class="container">
+            <div class="calculator-card">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7">
+                        <h2 class="h3 fw-bold mb-2 text-body">
+                            <i class="bi bi-calculator text-primary me-2"></i>Calculadora Inteligente de Ahorro
+                        </h2>
+                        <p class="text-muted mb-4">
+                            Descubre cuánto dinero puedes ahorrar al repostar en la estación más barata frente a la media de tu provincia.
+                        </p>
 
-    <div class="btn-info-flotante" onclick="abrirPanelStats()" title="Estadísticas de la zona">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-            <path
-                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-        </svg>
-    </div>
+                        <!-- 1. Selección de combustible -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">
+                                1. Selecciona tu combustible habitual:
+                            </label>
+                            <div class="calc-fuel-selector" role="group" aria-label="Selección de combustible habitual">
+                                <input type="radio" class="btn-check" name="calcFuel" id="calcFuelG95" value="p95" checked autocomplete="off">
+                                <label class="btn btn-outline-primary calc-fuel-pill" for="calcFuelG95">Gasolina 95</label>
 
-    <div class="offcanvas offcanvas-start border-0 shadow" tabindex="-1" id="offcanvasStats"
-        aria-labelledby="offcanvasStatsLabel">
-        <div class="offcanvas-header bg-primary text-white">
-            <h5 class="offcanvas-title fw-bold" id="offcanvasStatsLabel">
-                <i class="bi bi-graph-up-arrow me-2"></i> Análisis de Precios
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+                                <input type="radio" class="btn-check" name="calcFuel" id="calcFuelG98" value="p98" autocomplete="off">
+                                <label class="btn btn-outline-primary calc-fuel-pill" for="calcFuelG98">Gasolina 98</label>
+
+                                <input type="radio" class="btn-check" name="calcFuel" id="calcFuelDiesel" value="pDiesel" autocomplete="off">
+                                <label class="btn btn-outline-primary calc-fuel-pill" for="calcFuelDiesel">Diésel A</label>
+
+                                <input type="radio" class="btn-check" name="calcFuel" id="calcFuelDieselPre" value="pDieselPre" autocomplete="off">
+                                <label class="btn btn-outline-primary calc-fuel-pill" for="calcFuelDieselPre">Diésel+</label>
+
+                                <input type="radio" class="btn-check" name="calcFuel" id="calcFuelGLP" value="pGLP" autocomplete="off">
+                                <label class="btn btn-outline-primary calc-fuel-pill" for="calcFuelGLP">GLP</label>
+                            </div>
+                        </div>
+
+                        <!-- 2. Capacidad del depósito -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label small fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">
+                                    2. Capacidad del depósito:
+                                </label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 btn-tank-preset" data-litres="40">40 L</button>
+                                    <button type="button" class="btn btn-primary btn-sm rounded-pill px-3 active btn-tank-preset" data-litres="50">50 L</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 btn-tank-preset" data-litres="60">60 L</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 btn-tank-preset" data-litres="70">70 L</button>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label small fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">
+                                    Litros exactos:
+                                </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" id="calcTankInput" class="form-control fw-bold text-center" value="50" min="15" max="150" step="5">
+                                    <span class="input-group-text">Litros</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Frecuencia de repostaje -->
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold text-uppercase text-muted" style="font-size: 0.75rem;">
+                                3. ¿Con qué frecuencia llenas el depósito?
+                            </label>
+                            <select id="calcFreqSelect" class="form-select form-select-sm shadow-sm" style="max-width: 320px;">
+                                <option value="1">1 vez al mes (Uso ocasional)</option>
+                                <option value="2" selected>2 veces al mes (Uso medio ~15.000 km/año)</option>
+                                <option value="3">3 veces al mes (Conducción frecuente)</option>
+                                <option value="4">4 veces al mes / semanal (Profesional / Viajero)</option>
+                            </select>
+                        </div>
+
+                        <div class="small text-muted mt-2" id="calcSpreadInfo">
+                            Diferencia media estimada: ~0,21 € por cada litro repostado.
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Resultados de Ahorro -->
+                    <div class="col-lg-5">
+                        <div class="savings-result-box">
+                            <div class="small text-uppercase fw-bold text-white-50 mb-1">Ahorro estimado por depósito</div>
+                            <div class="savings-number" id="calcAhorroDeposito">
+                                <div class="spinner-border text-white" role="status" style="width: 2.2rem; height: 2.2rem;">
+                                    <span class="visually-hidden">Calculando...</span>
+                                </div>
+                            </div>
+                            <hr class="border-white opacity-25 my-3">
+                            <div class="small text-uppercase fw-bold text-white-50 mb-1">Ahorro anual acumulado</div>
+                            <div class="h2 fw-bold mb-3" id="calcAhorroAnual">
+                                <div class="spinner-border spinner-border-sm text-white" role="status"></div>
+                                <span class="fs-6 opacity-75 ms-1">Calculando ahorro...</span>
+                            </div>
+                            <a href="mapa.html" id="btnIrMapaAhorro" class="btn btn-light text-success fw-bold rounded-pill px-4 py-2 w-100 shadow-sm">
+                                <i class="bi bi-geo-alt-fill me-1"></i> Ver gasolineras baratas en mi zona
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="offcanvas-body" id="leyenda-container">
+    </section>
+
+    <!-- ==========================================================================
+         Sección de Ventajas y Características
+         ========================================================================== -->
+    <section class="features-tank-section position-relative overflow-hidden">
+        <div class="features-tank-overlay"></div>
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="text-center max-w-700 mx-auto mb-4">
+                <h2 class="h3 fw-bold text-white mb-2">La herramienta más rápida, neutral y precisa para repostar</h2>
+                <p class="features-tank-subtitle mb-0">Diseñada para conductores particulares, transportistas y profesionales que buscan el máximo ahorro sin complicaciones.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-box feature-box-tank">
+                        <div class="feature-icon-wrapper bg-primary text-white shadow-sm">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-2">Datos Oficiales MITECO</h3>
+                        <p class="small mb-0">
+                            Sincronización directa con el Geoportal del Ministerio de Transición Ecológica cada 30 minutos. Precios 100% fiables y legales.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-box feature-box-tank">
+                        <div class="feature-icon-wrapper bg-success text-white shadow-sm">
+                            <i class="bi bi-gift"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-2">100% Gratuito y Libre</h3>
+                        <p class="small mb-0">
+                            Sin registros, sin suscripciones de pago y sin recopilar datos personales. Acceso instantáneo a las más de 11.800 gasolineras.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-box feature-box-tank">
+                        <div class="feature-icon-wrapper bg-warning text-dark shadow-sm">
+                            <i class="bi bi-crosshair2"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-2">Geolocalización y Radar</h3>
+                        <p class="small mb-0">
+                            Localiza automáticamente las estaciones más baratas en un radio personalizable de 5 a 50 km desde tu posición GPS o municipio.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-box feature-box-tank">
+                        <div class="feature-icon-wrapper bg-info text-white shadow-sm">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-2">Modo Offline & PWA</h3>
+                        <p class="small mb-0">
+                            Instala GasoES en tu pantalla de inicio como una aplicación nativa. Consulta precios y ubicaciones incluso en zonas sin cobertura.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Guía del Conductor y Claves de Ahorro
+         ========================================================================== -->
+    <section class="py-5 border-top border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+                <div>
+                    <h2 class="h3 fw-bold mb-1 text-body">Claves para Ahorrar en Combustible</h2>
+                    <p class="text-muted mb-0">Estrategias prácticas y análisis de mercado para optimizar cada repostaje.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden guide-card">
+                        <img src="img/gasolinera-moderna.jpg" class="card-img-top guide-card-img" alt="Gasolinera moderna en España" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="h6 fw-bold mb-2">Cómo encontrar la estación más barata</h3>
+                            <p class="text-muted small flex-grow-1">
+                                Las gasolineras en centros comerciales, cooperativas y polígonos suelen ser hasta 0,25 €/L más baratas que en el centro o autopistas.
+                            </p>
+                            <a href="mapa.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">
+                                <i class="bi bi-geo-alt me-1"></i> Ver en el mapa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden guide-card">
+                        <img src="img/ahorro-viaje-carretera.jpg" class="card-img-top guide-card-img" alt="Carretera al amanecer" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="h6 fw-bold mb-2">El mejor día de la semana para repostar</h3>
+                            <p class="text-muted small flex-grow-1">
+                                Lunes y martes registran históricamente los precios más bajos de la semana. Los jueves y fines de semana los precios suben por mayor demanda.
+                            </p>
+                            <a href="historico.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">
+                                <i class="bi bi-graph-up me-1"></i> Ver histórico
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden guide-card">
+                        <img src="img/repostaje-combustible.jpg" class="card-img-top guide-card-img" alt="Repostaje de combustible" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="h6 fw-bold mb-2">Gasolina 95 vs 98 y Diésel A vs Diésel+</h3>
+                            <p class="text-muted small flex-grow-1">
+                                Salvo en motores de alta compresión o deportivos, la Gasolina 95 ofrece el mismo rendimiento que la 98 con un ahorro directo de hasta 0,20 €/L.
+                            </p>
+                            <a href="listado.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">
+                                <i class="bi bi-funnel me-1"></i> Comparar precios
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm overflow-hidden guide-card">
+                        <img src="img/petrolera-refineria.jpg" class="card-img-top guide-card-img" alt="Refinería de petróleo Exolum" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="h6 fw-bold mb-2">Gasolineras Low-Cost: la verdad</h3>
+                            <p class="text-muted small flex-grow-1">
+                                Todo el combustible en España procede de la misma red oficial (Exolum) y cumple la norma europea EN 228 / EN 590. El ahorro proviene de la automatización.
+                            </p>
+                            <a href="listado.html" class="btn btn-outline-primary btn-sm rounded-pill mt-2">
+                                <i class="bi bi-tags me-1"></i> Ver precios
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Espacio Publicitario Google AdSense Slot 2 (Contenido / Media)
+         ========================================================================== -->
+    <div class="container adsense-wrapper">
+        <div class="adsense-slot">
+            <span class="adsense-tag">Publicidad</span>
+            <!-- Código Placeholder Google AdSense Slot 2 -->
+            <ins class="adsbygoogle"
+                 style="display:block; min-width: 300px; min-height: 90px; width: 100%;"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="YYYYYYYYYY"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (window.adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 
-    <div id="map"></div>
+    <!-- ==========================================================================
+         Sección de Preguntas Frecuentes (FAQ Accordion)
+         ========================================================================== -->
+    <section class="faq-section-bg position-relative overflow-hidden">
+        <div class="faq-overlay"></div>
+        <div class="container position-relative" style="max-width: 860px; z-index: 2;">
+            <div class="text-center mb-5">
+                <h2 class="h3 fw-bold faq-title">Preguntas Frecuentes sobre Precios de Combustible</h2>
+                <p class="faq-subtitle">Respuestas claras y contrastadas a las consultas más habituales de los usuarios.</p>
+            </div>
 
+            <div class="accordion accordion-custom" id="faqAccordion">
+                <!-- FAQ 1 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqHeading1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                            ¿Con qué frecuencia se actualizan los precios de las gasolineras en GasoES?
+                        </button>
+                    </h3>
+                    <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Los precios se sincronizan continuamente con el Geoportal oficial del Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO). La base de datos se renueva cada 30 minutos para garantizar que siempre repostes con los precios vigentes.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqHeading2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                            ¿De dónde proceden los datos de precios de GasoES?
+                        </button>
+                    </h3>
+                    <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Todos los datos proceden directamente del Registro Oficial de Estaciones de Servicio del Ministerio para la Transición Ecológica (MITECO), donde cada gasolinera en España está obligada por ley a comunicar cualquier cambio de precio antes de aplicarlo en el surtidor.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqHeading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                            ¿Cuánto dinero puedo ahorrar al año eligiendo una gasolinera barata?
+                        </button>
+                    </h3>
+                    <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            La diferencia entre la gasolinera más cara y la más económica de una misma comarca suele rondar entre 0,18 € y 0,25 € por litro. En un depósito estándar de 50 litros esto supone un ahorro directo de 9 € a 13 € por llenado, lo que para un conductor medio equivale a más de 250 € a 320 € de ahorro anual.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqHeading4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                            ¿El combustible de las gasolineras Low-Cost tiene la misma calidad?
+                        </button>
+                    </h3>
+                    <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Sí. Todo el carburante distribuido en España proviene de los mismos centros logísticos oficiales (Exolum, anteriormente CLH) y cumple rigurosamente la normativa de calidad europea EN 228 (gasolina) y EN 590 (gasóleo). Las marcas tradicionales suelen añadir paquetes de aditivos propios, pero la base es exactamente idéntica y segura para el motor.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqHeading5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                            ¿Es necesario registrarse o pagar para usar GasoES?
+                        </button>
+                    </h3>
+                    <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            No. GasoES es 100% gratuito, libre de registros obligatorios y accesible desde cualquier navegador o instalable como Progressive Web App (PWA) en tu teléfono móvil u ordenador.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="faqHeading6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+                            ¿Puedo utilizar GasoES sin conexión a Internet?
+                        </button>
+                    </h3>
+                    <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Sí. GasoES está dotado de tecnología Progressive Web App (PWA) y base de datos local IndexedDB, lo que permite consultar los últimos precios descargados e información de estaciones incluso si te encuentras en una carretera sin cobertura móvil.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Footer Profesional y Completo
+         ========================================================================== -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Columna 1: Descripción y Neutralidad -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="img/favicon.png" alt="Logo GasoES" width="32" height="32" class="me-2">
+                        <span class="fs-4 fw-bold footer-brand-title">Gaso<span class="text-success">ES</span></span>
+                    </div>
+                    <p class="small text-muted mb-3" style="line-height: 1.6;">
+                        Portal independiente y comparador en tiempo real de estaciones de servicio en España. Facilitamos a los consumidores el acceso transparente a los precios oficiales de carburante para fomentar el ahorro y una movilidad más eficiente.
+                    </p>
+                    <div class="small text-muted">
+                        <i class="bi bi-shield-check text-success me-1"></i>
+                        <span>100% Neutral e Independiente de petroleras</span>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navegación Rápida -->
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h5>Navegación</h5>
+                    <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
+                        <li><a href="index.html"><i class="bi bi-chevron-right me-1 text-primary"></i>Inicio</a></li>
+                        <li><a href="mapa.html"><i class="bi bi-chevron-right me-1 text-primary"></i>Mapa en Vivo</a></li>
+                        <li><a href="listado.html"><i class="bi bi-chevron-right me-1 text-primary"></i>Listado de Precios</a></li>
+                        <li><a href="historico.html"><i class="bi bi-chevron-right me-1 text-primary"></i>Histórico y Gráficas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Información Legal -->
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h5>Legal y Privacidad</h5>
+                    <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
+                        <li><a href="aviso-legal.html"><i class="bi bi-file-text me-1"></i>Aviso Legal</a></li>
+                        <li><a href="politica-privacidad.html"><i class="bi bi-shield-lock me-1"></i>Política de Privacidad</a></li>
+                        <li><a href="politica-cookies.html"><i class="bi bi-cookie me-1"></i>Política de Cookies</a></li>
+                        <li>
+                            <a href="javascript:void(0)" onclick="if(window.abrirConfiguracionCookies){window.abrirConfiguracionCookies(); return false;}">
+                                <i class="bi bi-sliders me-1"></i>Configurar Cookies
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Fuentes y Datos Oficiales -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Fuentes Oficiales</h5>
+                    <p class="small text-muted mb-2">
+                        Precios obtenidos mediante la API pública de datos abiertos de hidrocarburos del Gobierno de España.
+                    </p>
+                    <ul class="list-unstyled small text-muted d-flex flex-column gap-1 mb-0">
+                        <li><i class="bi bi-bank me-1"></i> Ministerio para la Transición Ecológica (MITECO)</li>
+                        <li><i class="bi bi-database me-1"></i> Geoportal de Gasolineras</li>
+                        <li><i class="bi bi-diagram-3 me-1"></i> Centro Logístico Exolum (CLH)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Barra Inferior de Copyright -->
+            <div class="footer-bottom-bar d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <div class="text-center text-md-start">
+                    &copy; 2026 GasoES. Desarrollado con dedicación por Ángel Luis.
+                </div>
+                <div class="text-center text-md-end text-muted small">
+                    Los datos de precios son de carácter público e informativo según la normativa de hidrocarburos de España.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle JS y Cookie Consent -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="js/cookieConsent.js?v=9"></script>
 
-    <script src="js/dataManager.js"></script>
-    <script src="/js/main.js"></script>
+    <!-- Lógica de Precios en Vivo y Calculadora de la Home -->
+    <script type="module" src="js/home.js?v=9"></script>
 </body>
 
 </html>

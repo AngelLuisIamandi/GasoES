@@ -5,14 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Precios | GasoES</title>
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GasoES">
+    <link rel="apple-touch-icon" href="img/favicon.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/listado.css">
-    <script src="js/ui-loader.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/listado.css?v=8">
+    <link rel="stylesheet" href="css/cookieConsent.css?v=8">
+    <script src="js/ui-loader.js?v=8"></script>
 </head>
 
 <body class="bg-light">
@@ -21,88 +29,167 @@
 
     <div class="container mt-5 pt-5">
         <div class="d-md-none mb-3">
-    <button class="btn btn-primary w-100 shadow-sm d-flex justify-content-between align-items-center" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#filterCollapse">
-        <span><i class="bi bi-sliders2 me-2"></i> Filtros y Búsqueda</span>
-        <i class="bi bi-chevron-down"></i>
-    </button>
-</div>
+            <button class="btn btn-primary w-100 shadow-sm d-flex justify-content-between align-items-center" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#filterCollapse">
+                <span><i class="bi bi-sliders2 me-2"></i> Filtros y Calculadora</span>
+                <i class="bi bi-chevron-down"></i>
+            </button>
+        </div>
 
-<div class="collapse d-md-block" id="filterCollapse">
-    <div class="card shadow-sm mb-4 border-0">
-        <div class="card-body bg-light rounded shadow-sm">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
-                        <i class="bi bi-search me-1"></i> Buscar
-                    </label>
-                    <input type="text" id="searchInput" class="form-control border-0 shadow-sm" placeholder="Municipio, Rótulo...">
-                </div>
+        <div class="collapse d-md-block" id="filterCollapse">
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-body bg-light rounded shadow-sm p-3">
+                    <!-- Fila 1: Búsqueda, Ubicación, Combustible y Marcas -->
+                    <div class="row g-3 align-items-end mb-3">
+                        <div class="col-lg-3 col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-search me-1"></i> Buscar
+                            </label>
+                            <input type="text" id="searchInput" class="form-control border-0 shadow-sm" placeholder="Municipio, Rótulo...">
+                        </div>
 
-                <div class="col-md-4">
-                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
-                        <i class="bi bi-geo-alt me-1"></i> Ubicación
-                    </label>
-                    <div class="input-group shadow-sm">
-                        <input type="text" id="locationInput" class="form-control border-0" placeholder="Cerca de...">
-                        <button class="btn btn-white border-start" type="button" id="btnGPS">
-                            <i class="bi bi-crosshair text-primary"></i>
-                        </button>
-                        <input type="number" id="rangeInput" class="form-control border-0 text-center text-muted small px-1" value="30" style="max-width: 65px;">
-                        <span class="input-group-text bg-white border-0 text-muted small ps-0 pe-2">km</span>
-                        <button class="btn btn-primary border-0" type="button" id="btnLocation">
-                            <i class="bi bi-funnel"></i>
-                        </button>
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-geo-alt me-1"></i> Ubicación
+                            </label>
+                            <div class="input-group shadow-sm">
+                                <input type="text" id="locationInput" class="form-control border-0" placeholder="Cerca de...">
+                                <button class="btn btn-white border-start" type="button" id="btnGPS" title="Usar mi GPS actual">
+                                    <i class="bi bi-crosshair text-primary"></i>
+                                </button>
+                                <input type="number" id="rangeInput" class="form-control border-0 text-center text-muted small px-1" value="30" style="max-width: 65px;" title="Radio de búsqueda en km">
+                                <span class="input-group-text bg-white border-0 text-muted small ps-0 pe-2">km</span>
+                                <button class="btn btn-primary border-0" type="button" id="btnLocation" title="Buscar por dirección">
+                                    <i class="bi bi-funnel"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-fuel-pump me-1"></i> Combustible
+                            </label>
+                            <select id="sortSelect" class="form-select border-0 shadow-sm">
+                                <option value="todos">Mostrar Todos</option>
+                                <option value="p95" selected>Gasolina 95</option>
+                                <option value="p98">Gasolina 98</option>
+                                <option value="pDiesel">Diésel A</option>
+                                <option value="pDieselPre">Diésel+</option>
+                                <option value="pGLP">GLP</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-2 col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-tag me-1"></i> Marca / Cadena
+                            </label>
+                            <select id="brandSelect" class="form-select border-0 shadow-sm">
+                                <option value="todas">Todas las marcas</option>
+                                <optgroup label="Categorías">
+                                    <option value="tradicionales">Principales / Tradicionales</option>
+                                    <option value="lowcost">Low Cost</option>
+                                </optgroup>
+                                <optgroup label="Marcas individuales">
+                                    <option value="REPSOL">Repsol</option>
+                                    <option value="CEPSA">Cepsa / Moeve</option>
+                                    <option value="BP">BP</option>
+                                    <option value="SHELL">Shell</option>
+                                    <option value="GALP">Galp</option>
+                                    <option value="PLENOIL">Plenoil</option>
+                                    <option value="BALLENOIL">Ballenoil</option>
+                                    <option value="PETROPRIX">Petroprix</option>
+                                    <option value="CARREFOUR">Carrefour</option>
+                                    <option value="ALCAMPO">Alcampo</option>
+                                    <option value="BONAREA">BonÀrea</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-3">
-                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
-                        <i class="bi bi-fuel-pump me-1"></i> Combustible
-                    </label>
-                    <select id="sortSelect" class="form-select border-0 shadow-sm">
-                        <option value="todos">Mostrar Todos</option>
-                        <option value="p95" selected>Gasolina 95</option>
-                        <option value="p98">Gasolina 98</option>
-                        <option value="pDiesel">Diésel A</option>
-                        <option value="pDieselPre">Diésel+</option>
-                        <option value="pGLP">GLP</option>
-                    </select>
-                </div>
+                    <!-- Fila 2: Calculadora de depósito, Abiertas Ahora, Favoritos y Contador -->
+                    <div class="row g-3 align-items-end">
+                        <div class="col-lg-5 col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-calculator me-1"></i> Calculadora de Llenado de Depósito
+                            </label>
+                            <div class="input-group shadow-sm">
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="displayMode" id="modeLiter" value="liter" checked>
+                                    <label class="btn btn-outline-primary btn-sm px-2" for="modeLiter" style="font-size: 0.78rem;">€ / Litro</label>
 
-                <div class="col-md-2">
-                    <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
-                        <i class="bi bi-star me-1"></i> Filtro
-                    </label>
-                    <div class="input-group shadow-sm">
-                        <span class="input-group-text bg-white border-0 flex-grow-1 text-muted small justify-content-start">Solo Favs</span>
-                        <div class="input-group-text bg-white border-0 px-3">
-                            <div class="form-check form-switch m-0">
-                                <input class="form-check-input" type="checkbox" id="favFilter" role="switch">
+                                    <input type="radio" class="btn-check" name="displayMode" id="modeTank" value="tank">
+                                    <label class="btn btn-outline-primary btn-sm px-2" for="modeTank" style="font-size: 0.78rem;">Coste Depósito</label>
+                                </div>
+                                <span class="input-group-text bg-white border-0 text-muted small ps-3 pe-1">Capacidad:</span>
+                                <input type="number" id="tankCapacity" class="form-control border-0 text-center fw-bold" value="50" min="10" max="150" step="5" style="max-width: 65px;" title="Litros del depósito">
+                                <span class="input-group-text bg-white border-0 text-muted small pe-2">L</span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-toggles me-1"></i> Filtros Rápidos
+                            </label>
+                            <div class="d-flex gap-2">
+                                <!-- Switch Abiertas Ahora -->
+                                <div class="input-group shadow-sm flex-grow-1">
+                                    <span class="input-group-text bg-white border-0 flex-grow-1 text-muted small justify-content-start text-nowrap" style="font-size: 0.78rem;">
+                                        <i class="bi bi-clock-history me-1 text-success"></i> Abiertas ahora
+                                    </span>
+                                    <div class="input-group-text bg-white border-0 px-2">
+                                        <div class="form-check form-switch m-0">
+                                            <input class="form-check-input" type="checkbox" id="openNowFilter" role="switch">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Switch Favoritos -->
+                                <div class="input-group shadow-sm flex-grow-1">
+                                    <span class="input-group-text bg-white border-0 flex-grow-1 text-muted small justify-content-start text-nowrap" style="font-size: 0.78rem;">
+                                        <i class="bi bi-star-fill me-1 text-warning"></i> Solo Favs
+                                    </span>
+                                    <div class="input-group-text bg-white border-0 px-2">
+                                        <div class="form-check form-switch m-0">
+                                            <input class="form-check-input" type="checkbox" id="favFilter" role="switch">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-12">
+                            <label class="form-label small fw-bold text-muted text-uppercase" style="font-size: 0.65rem;">
+                                <i class="bi bi-info-circle me-1"></i> Resultados
+                            </label>
+                            <div class="d-flex align-items-center justify-content-between p-2 bg-white rounded shadow-sm" style="height: 38px;">
+                                <span class="small text-muted fw-bold" id="totalResultados" style="font-size: 0.78rem;">
+                                    <span class="spinner-border spinner-border-sm text-primary me-1"></span> Buscando...
+                                </span>
+                                <button class="btn btn-sm btn-outline-secondary py-0 px-2 text-nowrap" type="button" id="btnResetFilters" title="Restablecer todos los filtros" style="font-size: 0.72rem;">
+                                    <i class="bi bi-arrow-counterclockwise"></i> Limpiar
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
         <div class="table-responsive table-container shadow-sm bg-white rounded">
             <table class="table table-hover align-middle mb-0 text-center" style="font-size: 0.85rem;">
                 <thead class="table-dark sticky-top">
                     <tr>
-                        <th style="width: 50px;"><i class="bi bi-star-fill text-warning"></i></th>
-                        <th class="text-start">Estación / Dirección</th>
+                        <th style="width: 45px;"><i class="bi bi-star-fill text-warning"></i></th>
+                        <th class="text-start" style="min-width: 220px;">Estación / Dirección</th>
                         <th>Municipio</th>
-                        <th>G95</th>
-                        <th>G98</th>
-                        <th>Diésel A</th>
-                        <th>Diésel+</th>
-                        <th>GLP</th>
-                        <th>Horario</th>
+                        <th id="thG95">G95</th>
+                        <th id="thG98">G98</th>
+                        <th id="thDiesel">Diésel A</th>
+                        <th id="thDieselPre">Diésel+</th>
+                        <th id="thGLP">GLP</th>
+                        <th style="min-width: 140px;">Horario</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody"></tbody>
@@ -111,13 +198,38 @@
 
         <div id="loader-listado" class="text-center my-5">
             <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2">Sincronizando estaciones...</p>
+            <p class="mt-2 text-muted">Sincronizando estaciones...</p>
         </div>
     </div>
 
-    <script src="js/dataManager.js"></script>
+    <!-- Pie de Página Legal y Accesos -->
+    <footer class="bg-body border-top py-4 mt-5 text-muted small">
+        <div class="container">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <span class="fw-bold brand-text text-body">Gaso<span class="text-success">ES</span></span>
+                    <span class="mx-2">·</span>
+                    <span>Comparador de gasolineras con datos públicos MITECO</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-3">
+                        <a href="aviso-legal.html" class="text-decoration-none text-muted">Aviso Legal</a>
+                        <a href="politica-privacidad.html" class="text-decoration-none text-muted">Privacidad</a>
+                        <a href="politica-cookies.html" class="text-decoration-none text-muted">Cookies</a>
+                        <a href="#" onclick="if(window.abrirConfiguracionCookies){window.abrirConfiguracionCookies();} return false;" class="text-decoration-none text-muted">Configurar Cookies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3 pt-3 border-top text-muted" style="font-size: 0.78rem;">
+                &copy; 2026 GasoES. Desarrollado por Ángel Luis.
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/listado.js"></script>
+    <script src="js/cookieConsent.js?v=9"></script>
+    <script type="module" src="js/dataManager.js"></script>
+    <script type="module" src="js/listado.js?v=5"></script>
 </body>
 
 </html>

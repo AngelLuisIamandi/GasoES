@@ -1,0 +1,328 @@
+/* ==========================================================================
+   historico.css - Estilos específicos para la sección de Histórico, 
+   Comparador de Precios, Modo Oscuro y Empty States
+   ========================================================================== */
+
+html, body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+    background-color: var(--bs-body-bg, #f4f6f9);
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.kpi-card {
+    border: none;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+.kpi-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.kpi-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+.kpi-value {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--bs-body-color, #212529);
+    line-height: 1.2;
+}
+
+.card-custom {
+    border: none;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.fuel-pill-badge {
+    border-radius: 10px;
+    padding: 0.6rem 0.85rem;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
+}
+
+.fuel-pill-badge:hover {
+    border-color: #0d6efd;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.delta-badge {
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.delta-down {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.delta-up {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.delta-neutral {
+    background-color: #e2e3e5;
+    color: #41464b;
+}
+
+.chart-container-wrapper {
+    position: relative;
+    height: 380px;
+    width: 100%;
+}
+
+.table-responsive-custom {
+    max-height: 580px;
+    overflow-y: auto;
+    border-radius: 12px;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.table-responsive-custom thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #212529;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+}
+
+.star-fav {
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #ced4da;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star-fav:hover {
+    transform: scale(1.15);
+    color: #ffc107;
+}
+
+.star-fav.active {
+    color: #ffc107;
+}
+
+.fuel-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.fuel-tag-p95 { background: #d4edda; color: #155724; }
+.fuel-tag-p98 { background: #cce5ff; color: #004085; }
+.fuel-tag-pDiesel { background: #e2e3e5; color: #383d41; }
+.fuel-tag-pDieselPre { background: #ffeeba; color: #856404; }
+.fuel-tag-pGLP { background: #e8d7f1; color: #491269; }
+
+.btn-filter-fuel.active {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+    border-color: #0d6efd !important;
+}
+
+/* Modal and feedback */
+.progress-cuota {
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* Empty State Box */
+.empty-state-box {
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    background: transparent;
+    transition: all 0.25s ease;
+}
+
+.empty-state-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(13, 110, 253, 0.08);
+}
+
+/* --- Modo Oscuro en Histórico (Alto contraste y legibilidad) --- */
+[data-bs-theme="dark"] html,
+[data-bs-theme="dark"] body {
+    background-color: #0f1115 !important;
+    color: #e2e8f0;
+}
+
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] h3,
+[data-bs-theme="dark"] h4,
+[data-bs-theme="dark"] h5,
+[data-bs-theme="dark"] h6,
+[data-bs-theme="dark"] .h1,
+[data-bs-theme="dark"] .h2,
+[data-bs-theme="dark"] .h3,
+[data-bs-theme="dark"] .h4,
+[data-bs-theme="dark"] .h5,
+[data-bs-theme="dark"] .h6 {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .text-dark {
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+    color: #94a3b8 !important;
+}
+
+[data-bs-theme="dark"] .text-secondary {
+    color: #cbd5e1 !important;
+}
+
+[data-bs-theme="dark"] .border-bottom,
+[data-bs-theme="dark"] .border-top,
+[data-bs-theme="dark"] .border {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-bs-theme="dark"] .kpi-card,
+[data-bs-theme="dark"] .card-custom,
+[data-bs-theme="dark"] .fuel-pill-badge {
+    background-color: #181b20 !important;
+    color: #f1f3f5;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+[data-bs-theme="dark"] .kpi-value {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .kpi-label {
+    color: #94a3b8 !important;
+}
+
+[data-bs-theme="dark"] .fuel-badge-label {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #cbd5e1 !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-bs-theme="dark"] .bg-white {
+    background-color: #181b20 !important;
+    color: #f1f3f5 !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+    background-color: #14171b !important;
+    color: #f1f3f5 !important;
+}
+
+[data-bs-theme="dark"] .form-select,
+[data-bs-theme="dark"] .form-control {
+    background-color: #1e2228 !important;
+    color: #f8fafc !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-bs-theme="dark"] .form-select:focus,
+[data-bs-theme="dark"] .form-control:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+[data-bs-theme="dark"] .table {
+    --bs-table-bg: #181b20;
+    --bs-table-striped-bg: #1e2228;
+    --bs-table-hover-bg: #232830;
+    --bs-table-color: #f1f3f5;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] .table tbody tr td {
+    color: #f1f3f5;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] .table tbody tr:hover td {
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .delta-down {
+    background-color: rgba(25, 135, 84, 0.25);
+    color: #75b798;
+}
+
+[data-bs-theme="dark"] .delta-up {
+    background-color: rgba(220, 53, 69, 0.25);
+    color: #ea868f;
+}
+
+[data-bs-theme="dark"] .delta-neutral {
+    background-color: rgba(108, 117, 125, 0.25);
+    color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .fuel-tag-p95 { background: rgba(25, 135, 84, 0.25); color: #75b798; }
+[data-bs-theme="dark"] .fuel-tag-p98 { background: rgba(13, 110, 253, 0.25); color: #6ea8fe; }
+[data-bs-theme="dark"] .fuel-tag-pDiesel { background: rgba(108, 117, 125, 0.25); color: #adb5bd; }
+[data-bs-theme="dark"] .fuel-tag-pDieselPre { background: rgba(253, 126, 20, 0.25); color: #feb272; }
+[data-bs-theme="dark"] .fuel-tag-pGLP { background: rgba(111, 66, 193, 0.25); color: #c29ffa; }
+
+[data-bs-theme="dark"] .empty-state-icon {
+    background: rgba(13, 110, 253, 0.2);
+}
+
+[data-bs-theme="dark"] .btn-white {
+    background-color: #2b3035 !important;
+    color: #f8f9fa !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-bs-theme="dark"] .modal-content {
+    background-color: #181b20;
+    color: #f1f3f5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .modal-header,
+[data-bs-theme="dark"] .modal-footer {
+    border-color: rgba(255, 255, 255, 0.08);
+}

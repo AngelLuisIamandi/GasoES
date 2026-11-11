@@ -1,19 +1,25 @@
+/* ==========================================================================
+   style.css - Estilos globales, Modo Oscuro, Popups modernos y Bottom Sheet
+   ========================================================================== */
+
+/* --- 1. Base y Transiciones Globales --- */
 body,
 html {
     height: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     letter-spacing: -0.01em;
 }
 
-.form-label, .card-title, thead th {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.05em;
+.form-label, .card-title, thead th, .brand-text {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    letter-spacing: 0.03em;
 }
 
 .badge {
@@ -21,6 +27,106 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+/* Transiciones de tema en tarjetas y controles */
+.card, .form-control, .form-select, .offcanvas, .table-container, .mobile-bottom-sheet {
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ==========================================================================
+   Estilos de Navbar Global (Modo Claro & Modo Oscuro de Alto Contraste)
+   ========================================================================== */
+.navbar.fixed-top,
+#mainNavbar {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030 !important;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+[data-bs-theme="light"] .navbar.fixed-top,
+[data-bs-theme="light"] #mainNavbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .brand-text {
+    color: #0f172a !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .nav-link {
+    color: #1e293b !important;
+    font-weight: 600 !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .nav-link:hover {
+    color: #0d6efd !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .nav-link.active {
+    color: #0d6efd !important;
+    font-weight: 700 !important;
+}
+
+[data-bs-theme="light"] #btnThemeToggle {
+    border: 1px solid #94a3b8 !important;
+    color: #0f172a !important;
+    background-color: #f1f5f9 !important;
+}
+
+[data-bs-theme="light"] #btnThemeToggle:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+[data-bs-theme="dark"] .navbar.fixed-top,
+[data-bs-theme="dark"] #mainNavbar {
+    background-color: #0f1115 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .brand-text {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .nav-link {
+    color: #cbd5e1 !important;
+    font-weight: 500 !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .nav-link:hover {
+    color: #38bdf8 !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .nav-link.active {
+    color: #38bdf8 !important;
+    font-weight: 700 !important;
+}
+
+[data-bs-theme="dark"] #btnThemeToggle {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #f8fafc !important;
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-bs-theme="dark"] #btnThemeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+}
+
+/* El botón flotante de cookies se sitúa por encima del botón de estadísticas sólo en la vista de mapa */
+body:has(#map) .gaso-cookie-floating-btn,
+body:has(.btn-info-flotante) .gaso-cookie-floating-btn {
+    bottom: 82px !important;
+    left: 20px !important;
+    z-index: 1045 !important;
+}
+
+/* --- 2. Mapa Principal y Capas Leaflet --- */
 #map {
     height: 100vh;
     width: 100vw;
@@ -28,10 +134,42 @@ body {
     box-sizing: border-box;
 }
 
+[data-bs-theme="dark"] #map,
+[data-bs-theme="dark"] .leaflet-container {
+    background-color: #1a1d21 !important;
+}
+
+/* Modo oscuro elegante para las teselas de OpenStreetMap sin API Key ni marcas de agua */
+[data-bs-theme="dark"] .leaflet-tile-pane {
+    filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+/* Controles de zoom y atribuciones en modo oscuro */
+[data-bs-theme="dark"] .leaflet-control-zoom a {
+    background-color: #212529 !important;
+    color: #f8f9fa !important;
+    border-color: #373b3e !important;
+}
+
+[data-bs-theme="dark"] .leaflet-control-zoom a:hover {
+    background-color: #2b3035 !important;
+    color: #0d6efd !important;
+}
+
+[data-bs-theme="dark"] .leaflet-control-attribution {
+    background-color: rgba(33, 37, 41, 0.85) !important;
+    color: #adb5bd !important;
+}
+
+[data-bs-theme="dark"] .leaflet-control-attribution a {
+    color: #6ea8fe !important;
+}
+
 .leaflet-top {
     margin-top: 65px;
 }
 
+/* Loader de Carga */
 #loader {
     position: fixed;
     top: 0;
@@ -42,76 +180,92 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999; /* Por encima de todo */
-    transition: opacity 0.5s ease;
+    z-index: 9999;
+    transition: opacity 0.4s ease;
 }
 
-.info-leyenda {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #999;
-    min-width: 180px;
-    font-size: 12px;
-    line-height: 1.5;
+[data-bs-theme="dark"] #loader {
+    background: rgba(15, 17, 21, 0.96);
 }
 
+/* --- 3. Controles Flotantes del Mapa --- */
 .leaflet-control-geocoder {
-    border-radius: 5px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+[data-bs-theme="dark"] .leaflet-control-geocoder {
+    background: #212529;
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .leaflet-control-geocoder input {
+    background: #2b3035;
+    color: #f8f9fa;
 }
 
 .btn-ubicacion {
     position: absolute;
-    bottom: 20px;
+    bottom: 24px;
     right: 20px;
     z-index: 1000;
-    background: white;
-    border: 2px solid #007bff;
+    background: #ffffff;
+    border: 2px solid #0d6efd;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    color: #007bff;
+    width: 48px;
+    height: 48px;
+    color: #0d6efd;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .btn-ubicacion:hover {
     background: #f0f7ff;
+    transform: scale(1.08);
+}
+
+[data-bs-theme="dark"] .btn-ubicacion {
+    background: #212529;
+    border-color: #3d8bfd;
+    color: #6ea8fe;
+}
+
+[data-bs-theme="dark"] .btn-ubicacion:hover {
+    background: #2b3035;
 }
 
 .user-location-icon {
-    background: #007bff;
+    background: #0d6efd;
     border: 3px solid white;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 12px rgba(13, 110, 253, 0.6);
 }
 
 .btn-info-flotante {
     position: fixed;
-    bottom: 20px;
+    bottom: 24px;
     left: 20px;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     background-color: #0d6efd;
-    color: white;
+    color: #ffffff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 14px rgba(13, 110, 253, 0.35);
     cursor: pointer;
-    /* Ajustamos el z-index para que el backdrop de Bootstrap lo cubra */
-    z-index: 1040; 
-    transition: all 0.3s ease;
+    z-index: 1000; 
+    transition: all 0.25s ease;
     opacity: 1;
     visibility: visible;
 }
 
-/* Clase para ocultar el botón cuando el panel está abierto */
 .btn-info-flotante.hidden {
     opacity: 0;
     visibility: hidden;
@@ -119,12 +273,878 @@ body {
 }
 
 .btn-info-flotante:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
     background-color: #0b5ed7;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 18px rgba(13, 110, 253, 0.45);
 }
 
-/* Ajuste para que el panel lateral salga desde la izquierda si el botón está a la izquierda */
+/* Selector flotante de combustible en el mapa */
+.map-fuel-control {
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    z-index: 1000;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 6px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.map-fuel-control:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+[data-bs-theme="dark"] .map-fuel-control {
+    background: #212529;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-bs-theme="dark"] .map-fuel-control select {
+    background-color: #2b3035 !important;
+    color: #f8f9fa !important;
+}
+
 .offcanvas-start {
-    width: 300px;
+    width: 340px;
+}
+
+/* --- 4. Rediseño Moderno de Popups Leaflet --- */
+.leaflet-popup-content-wrapper {
+    padding: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    color: #212529;
+}
+
+[data-bs-theme="dark"] .leaflet-popup-content-wrapper,
+[data-bs-theme="dark"] .leaflet-popup-tip {
+    background: #1e2227;
+    color: #f1f3f5;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+}
+
+.leaflet-popup-content {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    top: 10px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    color: #6c757d;
+    padding: 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+    color: #212529;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+[data-bs-theme="dark"] .leaflet-container a.leaflet-popup-close-button:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Tarjeta interna del popup */
+.popup-card {
+    min-width: 250px;
+    max-width: 300px;
+    padding: 14px 16px 16px 16px;
+}
+
+.popup-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-right: 18px; /* Espacio para el aspa de cierre */
+}
+
+.popup-brand-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.popup-brand-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.popup-fav-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.popup-fav-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Indicadores de horario modernos */
+.popup-schedule-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.status-indicator.open {
+    background: rgba(25, 135, 84, 0.12);
+    color: #198754;
+}
+
+.status-indicator.closed {
+    background: rgba(108, 117, 125, 0.12);
+    color: #6c757d;
+}
+
+/* Punto verde pulsante para "Abierto ahora" */
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #198754;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+
+.pulse-dot::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #198754;
+    border-radius: 50%;
+    animation: pulse-ring 1.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.9; }
+    60% { transform: scale(2.4); opacity: 0; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+.status-dot-closed {
+    width: 8px;
+    height: 8px;
+    background-color: #6c757d;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Tabla de precios en Popup */
+.popup-price-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 4px;
+    margin-bottom: 12px;
+}
+
+.popup-price-table tr {
+    transition: background-color 0.15s;
+}
+
+.popup-price-table td {
+    padding: 4px 6px;
+    font-size: 0.78rem;
+    vertical-align: middle;
+}
+
+.popup-price-table tr td:first-child {
+    border-radius: 6px 0 0 6px;
+    color: var(--bs-secondary-color, #6c757d);
+    font-weight: 500;
+}
+
+.popup-price-table tr td:last-child {
+    border-radius: 0 6px 6px 0;
+    text-align: right;
+    font-weight: 700;
+    font-family: 'Inter', monospace;
+}
+
+.popup-price-table tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-bs-theme="dark"] .popup-price-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Bloque interactivo de cálculo de llenado */
+.popup-calc-box {
+    background: rgba(13, 110, 253, 0.05);
+    border: 1px solid rgba(13, 110, 253, 0.15);
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+}
+
+[data-bs-theme="dark"] .popup-calc-box {
+    background: rgba(13, 110, 253, 0.12);
+    border-color: rgba(13, 110, 253, 0.25);
+}
+
+/* Botón Cómo Llegar */
+.btn-directions {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(13, 110, 253, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-directions:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(13, 110, 253, 0.4);
+    color: #ffffff;
+}
+
+/* --- 5. Bottom Sheet para Móvil (Top 5 baratas) --- */
+.mobile-bottom-sheet {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-sheet {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+        background: #ffffff;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.15);
+        transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+        max-height: 60vh;
+        transform: translateY(calc(100% - 46px)); /* Estado minimizado por defecto */
+    }
+
+    [data-bs-theme="dark"] .mobile-bottom-sheet {
+        background: #1e2227;
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-bottom-sheet.expanded {
+        transform: translateY(0);
+    }
+
+    .bottom-sheet-handle-wrapper {
+        padding-top: 8px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .bottom-sheet-drag-handle {
+        width: 38px;
+        height: 4px;
+        background: #ced4da;
+        border-radius: 3px;
+        margin: 0 auto 6px auto;
+    }
+
+    [data-bs-theme="dark"] .bottom-sheet-drag-handle {
+        background: #495057;
+    }
+
+    .transition-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-bottom-sheet.expanded .transition-icon {
+        transform: rotate(180deg);
+    }
+
+    .bottom-sheet-content {
+        overflow-y: auto;
+        flex: 1;
+        padding: 4px 12px 16px 12px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .bottom-sheet-item {
+        border-radius: 12px;
+        padding: 10px 12px;
+        margin-bottom: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        background: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .bottom-sheet-item:hover, .bottom-sheet-item:active {
+        background: rgba(13, 110, 253, 0.05);
+        transform: scale(0.99);
+    }
+
+    [data-bs-theme="dark"] .bottom-sheet-item {
+        background: #252a30;
+        border-color: rgba(255, 255, 255, 0.06);
+        color: #f8f9fa;
+    }
+
+    [data-bs-theme="dark"] .bottom-sheet-item:hover,
+    [data-bs-theme="dark"] .bottom-sheet-item:active {
+        background: #2d333a;
+    }
+
+    /* Reposicionar botones flotantes en móvil para no ser tapados por el tirador */
+    .btn-ubicacion {
+        bottom: 60px;
+        right: 16px;
+    }
+
+    .btn-info-flotante {
+        bottom: 60px;
+        left: 16px;
+    }
+
+    .map-fuel-control {
+        top: 68px;
+        left: 12px;
+        padding: 4px 10px;
+    }
+}
+
+/* Medallas para el ranking Top 5 */
+.rank-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.rank-1 { background: #ffd700; color: #212529; }
+.rank-2 { background: #c0c0c0; color: #212529; }
+.rank-3 { background: #cd7f32; color: #ffffff; }
+.rank-other { background: rgba(108, 117, 125, 0.2); color: var(--bs-body-color, #212529); }
+
+/* ==========================================================================
+   Cluster de Mapa Temático: Doble Probeta y Matraz Circular (GasoES)
+   ========================================================================== */
+.probeta-cluster-icon {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* --- 1. MATRAZ CIRCULAR BI-LÍQUIDO (Zoom lejano / Vista general) --- */
+.matraz-circular-cluster {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    will-change: transform;
+}
+
+.matraz-circular-cluster:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 12px rgba(16, 185, 129, 0.45);
+    z-index: 1000 !important;
+}
+
+.matraz-glass-orb {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.92);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    overflow: hidden;
+    display: flex;
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.3), 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.matraz-half {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.matraz-half.half-g95 {
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.matraz-full-orb {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.matraz-liquid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: height 0.5s ease;
+}
+
+.matraz-specular {
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    right: 8px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 6;
+}
+
+.matraz-center-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    padding: 1.5px 5px;
+    display: flex;
+    align-items: center;
+    gap: 2.5px;
+    color: #ffffff;
+    font-size: 8.5px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.matraz-center-badge i {
+    color: #f59e0b;
+    font-size: 8px;
+}
+
+/* --- 2. DOBLE PROBETA COMPACTA (Zoom intermedio / acercándose) --- */
+.probeta-cluster {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+.probeta-cluster:hover {
+    transform: scale(1.15) translateY(-4px);
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 14px rgba(16, 185, 129, 0.45));
+    z-index: 1000 !important;
+}
+
+.probetas-pair {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px; /* Más juntas */
+    margin-bottom: -3px;
+    z-index: 2;
+}
+
+.probeta-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25px; /* Más compactas */
+}
+
+/* Etiqueta de Precio Flotante sobre la Probeta */
+.probeta-price-tag {
+    font-size: 8.5px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+    padding: 1px 3px;
+    margin-bottom: 2px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+/* Cilindro de Vidrio de la Probeta */
+.probeta-cylinder {
+    position: relative;
+    width: 13px;
+    height: 38px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-radius: 2px 2px 6.5px 6.5px;
+    overflow: hidden;
+    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Borde superior ensanchado de cristal */
+.probeta-glass-rim {
+    position: absolute;
+    top: 0;
+    left: -1px;
+    right: -1px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1px;
+    z-index: 5;
+}
+
+/* Marcas de graduación milimétrica de probeta */
+.probeta-ticks {
+    position: absolute;
+    right: 1.5px;
+    top: 4px;
+    bottom: 6px;
+    width: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.probeta-ticks span {
+    height: 1px;
+    width: 2.5px;
+    background: rgba(255, 255, 255, 0.7);
+    margin-left: auto;
+}
+
+.probeta-ticks span:nth-child(2) {
+    width: 3.5px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Líquido de combustible reactivo */
+.probeta-liquid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 5px 5px;
+    transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Líquido Gasolina 95: Verde esmeralda luminoso */
+.liquid-g95,
+.liquid-p95 {
+    background: linear-gradient(180deg, #34d399 0%, #10b981 40%, #047857 100%);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Líquido Gasolina 98: Rojo carmesí neón */
+.liquid-p98 {
+    background: linear-gradient(180deg, #f87171 0%, #ef4444 40%, #b91c1c 100%);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Líquido Diésel A: Azul eléctrico / cian luminoso */
+.liquid-diesel,
+.liquid-pDiesel {
+    background: linear-gradient(180deg, #38bdf8 0%, #0284c7 40%, #0369a1 100%);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Líquido Diésel+ Premium: Violeta / Índigo neón */
+.liquid-pDieselPre {
+    background: linear-gradient(180deg, #a78bfa 0%, #6366f1 40%, #4338ca 100%);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Líquido GLP Auto: Ámbar / Fuego dorado */
+.liquid-pGLP {
+    background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 40%, #b45309 100%);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Superficie / Menisco del líquido */
+.probeta-meniscus {
+    position: absolute;
+    top: -1.5px;
+    left: 0;
+    right: 0;
+    height: 2.5px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    box-shadow: 0 0 3px #ffffff;
+}
+
+/* Reflejo vertical de brillo de vidrio */
+.probeta-glass-reflection {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1px;
+    width: 2.5px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 6;
+    border-radius: 1px 0 0 5px;
+}
+
+/* Píldora de tipo de combustible debajo de cada probeta */
+.probeta-fuel-pill {
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-top: 1.5px;
+    padding: 0 2px;
+    border-radius: 2px;
+    line-height: 1.1;
+}
+
+.pill-g95,
+.pill-p95 {
+    color: #34d399;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.pill-p98 {
+    color: #f87171;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.pill-diesel,
+.pill-pDiesel {
+    color: #38bdf8;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.pill-pDieselPre {
+    color: #a78bfa;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.pill-pGLP {
+    color: #fbbf24;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* Peana / Rack de Laboratorio con Contador de Gasolineras */
+.probeta-rack-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    padding: 1.5px 6px;
+    color: #ffffff;
+    font-size: 8.5px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), 0 0 10px rgba(13, 110, 253, 0.3);
+    z-index: 10;
+    min-width: 44px;
+}
+
+.probeta-rack-base i {
+    color: #f59e0b;
+    font-size: 8px;
+}
+
+.probeta-count {
+    color: #ffffff;
+    line-height: 1;
+}
+
+/* --- 3. PROBETAS VERTICALES: MARCADOR FINAL DE GASOLINERA INDIVIDUAL --- */
+.probeta-station-icon {
+    background: transparent !important;
+    border: none !important;
+}
+
+.probeta-station {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease;
+    will-change: transform;
+}
+
+.probeta-station:hover {
+    transform: scale(1.15) translateY(-4px);
+    z-index: 1000 !important;
+}
+
+.probeta-station .station-base {
+    padding: 1.5px 7px;
+    min-width: 42px;
+    max-width: 68px;
+}
+
+.probeta-brand-name {
+    color: #ffffff;
+    font-size: 8px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* Colores semafóricos en los precios de las probetas individuales */
+.probeta-price-tag.bg-success {
+    background: #198754 !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.probeta-price-tag.bg-danger {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.probeta-price-tag.bg-warning {
+    background: #ffc107 !important;
+    color: #111827 !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.probeta-price-tag.bg-secondary {
+    background: #475569 !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   MODO TRANSPARENCIA DE MARCADORES (Ver mapa y carreteras con claridad)
+   ========================================================================== */
+.btn-map-transparency {
+    background: rgba(13, 110, 253, 0.08);
+    border: 1px solid rgba(13, 110, 253, 0.28);
+    border-radius: 8px;
+    padding: 3px 9px;
+    color: var(--bs-body-color, #212529);
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.btn-map-transparency:hover {
+    background: rgba(13, 110, 253, 0.16);
+    border-color: #0d6efd;
+    transform: translateY(-1px);
+}
+
+.btn-map-transparency.active {
+    background: #0d6efd !important;
+    color: #ffffff !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 12px rgba(13, 110, 253, 0.55);
+}
+
+.btn-map-transparency.active i {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .btn-map-transparency {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #e2e8f0;
+}
+
+[data-bs-theme="dark"] .btn-map-transparency:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+[data-bs-theme="dark"] .btn-map-transparency.active {
+    background: #0d6efd !important;
+    color: #ffffff !important;
+}
+
+/* Efecto de transparencia sobre todos los marcadores del mapa */
+#map.map-transparente .leaflet-marker-pane .leaflet-marker-icon {
+    opacity: 0.20 !important;
+    filter: grayscale(25%) !important;
+    transition: opacity 0.28s ease, filter 0.28s ease, transform 0.2s ease !important;
+}
+
+/* Al pasar el cursor sobre cualquier estación o cluster en modo transparente, se hace 100% visible */
+#map.map-transparente .leaflet-marker-pane .leaflet-marker-icon:hover {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.18) !important;
+    z-index: 99999 !important;
 }

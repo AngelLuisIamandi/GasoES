@@ -1,0 +1,927 @@
+/* ==========================================================================
+   home.css - Estilos específicos de la Landing Page y Portal SEO de GasoES
+   Compatible con Modo Claro y Modo Oscuro (data-bs-theme)
+   ========================================================================== */
+
+html, body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+    background-color: var(--bs-body-bg, #f8f9fa);
+    color: var(--bs-body-color, #212529);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+[data-bs-theme="dark"] html,
+[data-bs-theme="dark"] body {
+    background-color: #0f1115 !important;
+    color: #e9ecef !important;
+}
+
+/* Compensación de Navbar Fixed */
+.home-page {
+    padding-top: 58px;
+    margin: 0;
+}
+
+/* Navbar integrado al 100% con contraste perfecto en modo claro y oscuro */
+.navbar.fixed-top,
+#mainNavbar {
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Modo Claro: Fondo blanco nítido, textos oscuros y legibles al 100% */
+[data-bs-theme="light"] .navbar.fixed-top,
+[data-bs-theme="light"] #mainNavbar {
+    background-color: #ffffff !important;
+    border: none !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .brand-text {
+    color: #0f172a !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .nav-link {
+    color: #334155 !important;
+    font-weight: 600 !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .nav-link:hover {
+    color: #0d6efd !important;
+}
+
+[data-bs-theme="light"] #mainNavbar .nav-link.active {
+    color: #0d6efd !important;
+    font-weight: 700 !important;
+}
+
+[data-bs-theme="light"] #btnThemeToggle {
+    border: 1px solid #cbd5e1 !important;
+    color: #1e293b !important;
+    background-color: #f1f5f9 !important;
+}
+
+[data-bs-theme="light"] #btnThemeToggle:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+/* Modo Oscuro: Fondo profundo, textos claros de alto contraste */
+[data-bs-theme="dark"] .navbar.fixed-top,
+[data-bs-theme="dark"] #mainNavbar {
+    background-color: #0f1115 !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .brand-text {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .nav-link {
+    color: #cbd5e1 !important;
+    font-weight: 500 !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .nav-link:hover {
+    color: #38bdf8 !important;
+}
+
+[data-bs-theme="dark"] #mainNavbar .nav-link.active {
+    color: #38bdf8 !important;
+    font-weight: 700 !important;
+}
+
+[data-bs-theme="dark"] #btnThemeToggle {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #f8fafc !important;
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-bs-theme="dark"] #btnThemeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+}
+
+/* Tarjetas de Guía Visual con Imágenes */
+.guide-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius: 14px;
+}
+
+.guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-bs-theme="dark"] .guide-card {
+    background-color: #181b22;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.guide-card-img {
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+/* ==========================================================================
+   Contenedor Unificado Hero + Precios Medios (Resplandor Continuo sin Cortes)
+   ========================================================================== */
+.hero-glow-wrapper {
+    position: relative;
+    /* Resplandor radial amplio que abarca el Hero y baña el título y tarjetas de Precios Medios */
+    background: radial-gradient(ellipse 90% 70% at 50% 32%, rgba(13, 110, 253, 0.1) 0%, rgba(25, 135, 84, 0.05) 55%, transparent 85%);
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .hero-glow-wrapper {
+    background: radial-gradient(ellipse 90% 70% at 50% 32%, rgba(13, 110, 253, 0.22) 0%, rgba(25, 135, 84, 0.1) 55%, transparent 85%);
+}
+
+.hero-section {
+    position: relative;
+    padding: 65px 0 45px 0;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: none !important;
+    overflow: visible;
+}
+
+[data-bs-theme="dark"] .hero-section {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: none !important;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    border: 1px solid rgba(13, 110, 253, 0.2);
+    margin-bottom: 20px;
+}
+
+[data-bs-theme="dark"] .hero-badge {
+    background: rgba(13, 110, 253, 0.2);
+    color: #6ea8fe;
+    border-color: rgba(110, 168, 254, 0.3);
+}
+
+.hero-title {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 0 25px 0;
+    }
+    .hero-title {
+        font-size: 2rem;
+    }
+    .prices-widget-section {
+        padding: 20px 0 45px 0;
+    }
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--bs-secondary-color, #6c757d);
+    max-width: 760px;
+    margin: 0 auto 32px auto;
+}
+
+/* Buscador Rápido en Hero */
+.hero-search-card {
+    max-width: 680px;
+    margin: 0 auto 28px auto;
+    background: var(--bs-body-bg, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+[data-bs-theme="dark"] .hero-search-card {
+    background: #181b20;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.hero-search-card:focus-within {
+    border-color: #0d6efd;
+    box-shadow: 0 12px 35px rgba(13, 110, 253, 0.15);
+}
+
+.hero-search-card .form-control {
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    box-shadow: none !important;
+}
+
+/* Botones CTA Principales */
+.btn-hero-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 50px;
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(13, 110, 253, 0.4);
+    color: #fff;
+}
+
+.btn-hero-secondary {
+    background: var(--bs-body-bg, #ffffff);
+    color: var(--bs-body-color, #212529);
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+[data-bs-theme="dark"] .btn-hero-secondary {
+    background: #1e2227;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #f8f9fa;
+}
+
+.btn-hero-secondary:hover {
+    transform: translateY(-2px);
+    background: #f1f3f5;
+    color: #0d6efd;
+}
+
+[data-bs-theme="dark"] .btn-hero-secondary:hover {
+    background: #282d34;
+    color: #6ea8fe;
+}
+
+/* Chips de Ciudades Rápidas */
+.hero-quick-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.hero-quick-chip {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--bs-secondary-color, #6c757d);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+[data-bs-theme="dark"] .hero-quick-chip {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-quick-chip:hover {
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    border-color: rgba(13, 110, 253, 0.3);
+}
+
+/* ==========================================================================
+   Widget de Precios Medios en Tiempo Real
+   ========================================================================== */
+.prices-widget-section {
+    position: relative;
+    padding: 35px 0 65px 0;
+    background: transparent !important;
+    border: none !important;
+}
+
+.fuel-price-card {
+    background: var(--bs-body-bg, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 22px 18px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .fuel-price-card {
+    background: rgba(24, 27, 32, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.fuel-price-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    border-color: rgba(13, 110, 253, 0.3);
+}
+
+.fuel-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    display: inline-block;
+}
+
+.fuel-price-value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--bs-body-color, #212529);
+    line-height: 1;
+    margin: 12px 0 6px 0;
+}
+
+.fuel-price-unit {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--bs-secondary-color, #6c757d);
+    margin-left: 2px;
+}
+
+.fuel-min-badge {
+    font-size: 0.78rem;
+    color: #198754;
+    font-weight: 600;
+}
+
+[data-bs-theme="dark"] .fuel-min-badge {
+    color: #75b798;
+}
+
+/* ==========================================================================
+   Espacios Publicitarios Google AdSense
+   ========================================================================== */
+.adsense-wrapper {
+    margin: 40px auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+.adsense-slot {
+    min-height: 120px;
+    max-width: 970px;
+    margin: 0 auto;
+    padding: 14px 10px;
+    background: #fbfbfb;
+    border: 1px dashed #d1d5db;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .adsense-slot {
+    background: #14171c;
+    border-color: #374151;
+}
+
+.adsense-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 6px;
+    user-select: none;
+}
+
+/* ==========================================================================
+   Calculadora Interactiva de Ahorro
+   ========================================================================== */
+.calculator-card {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.04) 0%, rgba(25, 135, 84, 0.04) 100%), var(--bs-body-bg, #ffffff);
+    border: 1px solid rgba(13, 110, 253, 0.18);
+    border-radius: 22px;
+    padding: 36px 30px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+}
+
+[data-bs-theme="dark"] .calculator-card {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.08) 0%, rgba(25, 135, 84, 0.08) 100%), #181b20;
+    border-color: rgba(110, 168, 254, 0.25);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 576px) {
+    .calculator-card {
+        padding: 22px 14px;
+        border-radius: 18px;
+    }
+}
+
+/* Selector Responsivo de Combustible (Evita desbordamientos en móvil) */
+.calc-fuel-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+}
+
+.calc-fuel-selector .calc-fuel-pill {
+    flex: 1 1 calc(20% - 8px);
+    min-width: 90px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 50px !important;
+    text-align: center;
+    white-space: nowrap;
+    border-width: 1.5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .calc-fuel-selector .calc-fuel-pill {
+        flex: 1 1 calc(33.333% - 8px);
+        min-width: 82px;
+        font-size: 0.8rem;
+        padding: 7px 8px;
+    }
+}
+
+@media (max-width: 420px) {
+    .calc-fuel-selector {
+        gap: 6px;
+    }
+
+    .calc-fuel-selector .calc-fuel-pill {
+        flex: 1 1 calc(33.333% - 6px);
+        min-width: 76px;
+        font-size: 0.74rem;
+        padding: 6px 4px;
+    }
+}
+
+.savings-result-box {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%);
+    color: #ffffff;
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 10px 24px rgba(25, 135, 84, 0.3);
+}
+
+.savings-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 576px) {
+    .savings-number {
+        font-size: 2.3rem;
+    }
+}
+
+/* ==========================================================================
+   Sección de Ventajas: Fondo Temático Interior de Tanque de Gasolina
+   ========================================================================== */
+.features-tank-section {
+    position: relative;
+    background-color: #0b0d11;
+    background-image: url('../img/tanque-combustible-fondo.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    padding-top: 65px;
+    padding-bottom: 132px;
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: inset 0 35px 50px rgba(0, 0, 0, 0.85), inset 0 -35px 50px rgba(0, 0, 0, 0.85);
+}
+
+.features-tank-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(11, 13, 17, 0.88) 0%,
+        rgba(15, 17, 21, 0.62) 40%,
+        rgba(26, 17, 4, 0.38) 75%,
+        rgba(15, 17, 21, 0.78) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+.features-tank-subtitle {
+    color: #cbd5e1;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+    .features-tank-section {
+        padding-top: 45px;
+        padding-bottom: 90px;
+    }
+}
+
+/* Tarjetas Glassmorphism translúcidas sobre el tanque */
+.feature-box-tank {
+    background: rgba(18, 21, 26, 0.72) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 20px !important;
+    padding: 32px 24px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+    height: 100%;
+}
+
+.feature-box-tank:hover {
+    transform: translateY(-6px) !important;
+    border-color: rgba(255, 193, 7, 0.5) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 193, 7, 0.22) !important;
+}
+
+.feature-box-tank .feature-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.feature-box-tank h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff !important;
+}
+
+.feature-box-tank p {
+    color: #e2e8f0 !important;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Sección de Ventajas y Características (Original / Genérico)
+   ========================================================================== */
+.feature-box {
+    background: var(--bs-body-bg, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    padding: 30px 24px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-bs-theme="dark"] .feature-box {
+    background: #181b20;
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.feature-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+}
+
+.feature-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   Guía Editorial SEO (Contenido AdSense de Alto Valor)
+   ========================================================================== */
+.editorial-article {
+    background: var(--bs-body-bg, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 20px;
+    padding: 42px 36px;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.03);
+    line-height: 1.75;
+}
+
+[data-bs-theme="dark"] .editorial-article {
+    background: #181b20;
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 576px) {
+    .editorial-article {
+        padding: 26px 18px;
+    }
+}
+
+.editorial-article h2 {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    color: var(--bs-body-color, #212529);
+    position: relative;
+    padding-left: 16px;
+}
+
+.editorial-article h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 4px;
+    background: #0d6efd;
+    border-radius: 4px;
+}
+
+.editorial-tip {
+    background: rgba(13, 110, 253, 0.06);
+    border-left: 4px solid #0d6efd;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+}
+
+[data-bs-theme="dark"] .editorial-tip {
+    background: rgba(13, 110, 253, 0.12);
+}
+
+/* ==========================================================================
+   Preguntas Frecuentes (FAQ Accordion) con Fondo Cinemático de Carretera
+   ========================================================================== */
+.faq-section-bg {
+    position: relative;
+    background-color: #0b0d11;
+    background-image: url('../img/faq-fondo-carretera.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 90px 0 95px 0;
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: inset 0 35px 50px rgba(0, 0, 0, 0.85), inset 0 -35px 50px rgba(0, 0, 0, 0.85);
+}
+
+.faq-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(11, 13, 17, 0.78) 0%,
+        rgba(13, 17, 24, 0.48) 50%,
+        rgba(11, 13, 17, 0.82) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+.faq-title {
+    color: #ffffff !important;
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.faq-subtitle {
+    color: #cbd5e1 !important;
+    font-size: 1.05rem;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.accordion-custom .accordion-item {
+    background: rgba(18, 22, 28, 0.76);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px !important;
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-bs-theme="light"] .accordion-custom .accordion-item {
+    background: rgba(255, 255, 255, 0.90) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22) !important;
+}
+
+.accordion-custom .accordion-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(13, 110, 253, 0.5) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 18px rgba(13, 110, 253, 0.2) !important;
+}
+
+.accordion-custom .accordion-button {
+    font-weight: 600;
+    font-size: 1.02rem;
+    padding: 18px 22px;
+    background: transparent;
+    color: #f8fafc;
+    box-shadow: none !important;
+}
+
+[data-bs-theme="light"] .accordion-custom .accordion-button {
+    color: #0f172a !important;
+}
+
+.accordion-custom .accordion-button:not(.collapsed) {
+    color: #6ea8fe;
+    background: rgba(13, 110, 253, 0.14);
+}
+
+[data-bs-theme="light"] .accordion-custom .accordion-button:not(.collapsed) {
+    color: #0d6efd !important;
+    background: rgba(13, 110, 253, 0.08) !important;
+}
+
+.accordion-custom .accordion-body {
+    padding: 18px 22px 24px 22px;
+    line-height: 1.7;
+    color: #cbd5e1;
+}
+
+[data-bs-theme="light"] .accordion-custom .accordion-body {
+    color: #334155 !important;
+}
+
+@media (max-width: 768px) {
+    .faq-section-bg {
+        padding: 55px 0 65px 0;
+    }
+}
+
+/* ==========================================================================
+   Footer Principal Adaptativo (Modo Claro & Modo Oscuro de Alto Contraste)
+   ========================================================================== */
+.main-footer {
+    padding: 65px 0 30px 0;
+    font-size: 0.9rem;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Modo Claro: Fondo slate suave, textos oscuros nítidos */
+[data-bs-theme="light"] .main-footer {
+    background-color: #f1f5f9 !important;
+    color: #334155 !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+[data-bs-theme="light"] .main-footer h5 {
+    color: #0f172a !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+}
+
+[data-bs-theme="light"] .main-footer .footer-brand-title {
+    color: #0f172a !important;
+}
+
+[data-bs-theme="light"] .main-footer p,
+[data-bs-theme="light"] .main-footer .text-muted,
+[data-bs-theme="light"] .main-footer li {
+    color: #475569 !important;
+}
+
+[data-bs-theme="light"] .main-footer a {
+    color: #334155 !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+[data-bs-theme="light"] .main-footer a:hover {
+    color: #0d6efd !important;
+}
+
+[data-bs-theme="light"] .main-footer .footer-author-link {
+    color: #0d6efd !important;
+    font-weight: 700;
+}
+
+[data-bs-theme="light"] .footer-bottom-bar {
+    border-top: 1px solid #e2e8f0 !important;
+    padding-top: 25px;
+    margin-top: 45px;
+    font-size: 0.85rem;
+    color: #64748b !important;
+}
+
+/* Modo Oscuro: Fondo profundo, textos plateados de alta legibilidad */
+[data-bs-theme="dark"] .main-footer {
+    background-color: #0b0d11 !important;
+    color: #cbd5e1 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-bs-theme="dark"] .main-footer h5 {
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+}
+
+[data-bs-theme="dark"] .main-footer .footer-brand-title {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .main-footer p,
+[data-bs-theme="dark"] .main-footer .text-muted,
+[data-bs-theme="dark"] .main-footer li {
+    color: #cbd5e1 !important;
+}
+
+[data-bs-theme="dark"] .main-footer a {
+    color: #94a3b8 !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+[data-bs-theme="dark"] .main-footer a:hover {
+    color: #38bdf8 !important;
+}
+
+[data-bs-theme="dark"] .main-footer .footer-author-link {
+    color: #38bdf8 !important;
+    font-weight: 700;
+}
+
+[data-bs-theme="dark"] .footer-bottom-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding-top: 25px;
+    margin-top: 45px;
+    font-size: 0.85rem;
+    color: #94a3b8 !important;
+}

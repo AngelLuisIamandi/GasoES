@@ -1,7 +1,12 @@
+/* ==========================================================================
+   listado.css - Estilos de la tabla de precios, Modo Oscuro y Empty State
+   ========================================================================== */
+
 .table-container {
-    max-height: 100vh;
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
     border: 1px solid #dee2e6;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .sticky-top {
@@ -9,8 +14,12 @@
     z-index: 10;
 }
 
+#tableBody tr {
+    transition: background-color 0.15s ease;
+}
+
 #tableBody tr:hover {
-    background-color: #f8f9fa;
+    background-color: rgba(13, 110, 253, 0.04);
     cursor: default;
 }
 
@@ -33,30 +42,96 @@ td .badge {
 }
 
 .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+#favFilter:checked {
     background-color: #ffc107;
     border-color: #ffc107;
 }
 
 .fav-icon {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     cursor: pointer;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.15s ease;
 }
 
 .fav-icon:hover {
-    transform: scale(1.2);
+    transform: scale(1.25);
 }
 
 td span.badge {
     display: inline-block;
-    padding: 5px;
-    font-family: 'Courier New', Courier, monospace;
+    padding: 5px 8px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
 }
 
 th:nth-child(4), th:nth-child(5), th:nth-child(6), th:nth-child(7), th:nth-child(8) {
-    width: 85px;
+    min-width: 95px;
 }
 
 .bi-star-fill.text-warning {
     filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.4));
+}
+
+.btn-xs {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.72rem;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+
+.btn-xs:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Empty State Card */
+.empty-state-box {
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    background: transparent;
+    transition: all 0.25s ease;
+}
+
+.empty-state-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(13, 110, 253, 0.08);
+}
+
+[data-bs-theme="dark"] .empty-state-icon {
+    background: rgba(13, 110, 253, 0.18);
+}
+
+/* --- Soporte de Modo Oscuro en Listado --- */
+[data-bs-theme="dark"] .table-container {
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: #1e2227 !important;
+}
+
+[data-bs-theme="dark"] .bg-white {
+    background-color: #212529 !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+    background-color: #181b1f !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] #tableBody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+[data-bs-theme="dark"] .input-group-text.bg-white,
+[data-bs-theme="dark"] .btn-white {
+    background-color: #2b3035 !important;
+    color: #f8f9fa !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
 }
